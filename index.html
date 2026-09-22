@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OTTv2 - Strategic Rock Paper Scissors</title>
+  <meta name="description" content="OTTv2 is a tactical 9x9 Rock-Paper-Scissors board game supporting Local 2-Player Hot-Seat and Online Real-Time Multiplayer." />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased min-h-screen flex flex-col justify-between select-none">
+
+  <!-- PlayHTML State Root Element -->
+  <div id="ottv2-state-root" can-play class="hidden"></div>
+
+  <!-- MENU CONTAINER (Main Menu & Online Lobby) -->
+  <div id="app-menu-container"></div>
+
+  <!-- GAME SCREEN VIEW -->
+  <div id="game-screen" class="hidden min-h-screen flex flex-col justify-between">
+    <!-- TOP HUD BAR -->
+    <div id="hud-container"></div>
+
+    <!-- MAIN GAME AREA -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-3 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- LEFT/CENTER: 9x9 BOARD -->
+      <div class="lg:col-span-7 xl:col-span-7 flex flex-col items-center">
+        <div id="board-container" class="w-full max-w-[540px]"></div>
+      </div>
+
+      <!-- RIGHT: PLAYERS & MOVE HISTORY -->
+      <div class="lg:col-span-5 xl:col-span-5 flex flex-col gap-5 w-full">
+        <!-- Player Status Cards -->
+        <div>
+          <h3 class="text-xs uppercase tracking-wider font-bold text-zinc-500 mb-2">Players</h3>
+          <div id="players-container"></div>
+        </div>
+
+        <!-- Move History -->
+        <div class="bg-zinc-900/60 border border-zinc-800 rounded-xl p-3.5 flex-1 flex flex-col max-h-[360px]">
+          <h3 class="text-xs uppercase tracking-wider font-bold text-zinc-500 mb-2 flex items-center justify-between">
+            <span>Move History</span>
+            <span class="text-[10px] text-zinc-600 font-normal">Tactical Log</span>
+          </h3>
+          <div id="move-history-container" class="overflow-y-auto flex-1 pr-1 custom-scrollbar"></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- WAITING OVERLAY (Online Only) -->
+  <div id="waiting-overlay" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-40 flex items-center justify-center p-4">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-md w-full p-6 text-center shadow-2xl">
+      <div class="w-12 h-12 rounded-full bg-indigo-950 border border-indigo-800 flex items-center justify-center mx-auto mb-4 animate-bounce">
+        <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <h3 class="text-xl font-bold text-zinc-100 mb-1">Waiting for Player 2...</h3>
+      <p class="text-xs text-zinc-400 mb-4">Share the full invite URL or room ID below to start playing.</p>
+
+      <div class="bg-zinc-950 border border-zinc-800 p-2.5 rounded-xl font-mono text-xs text-zinc-300 break-all mb-4 select-all">
+        <span id="waiting-invite-url" class="text-indigo-400 font-semibold"></span>
+      </div>
+
+      <button id="waiting-copy-btn" class="w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm tracking-wide shadow-lg shadow-indigo-950 flex items-center justify-center gap-2 transition-all">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+        </svg>
+        COPY INVITE LINK
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL CONTAINER (Victory & Rules) -->
+  <div id="modal-container" class="hidden"></div>
+
+  <!-- DEBUG CONTAINER -->
+  <div id="debug-container" class="hidden"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
